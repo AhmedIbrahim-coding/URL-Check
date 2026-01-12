@@ -10,3 +10,6 @@ content = response.json()
 
 if "message" in content:
     print(content["message"])
+else:
+    for line in content:
+        print(f"{line} : {content[line]}")
