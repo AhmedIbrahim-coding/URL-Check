@@ -97,6 +97,12 @@ def normalize_port(parsed: ParseResult) -> ParseResult:
     # replace the old netlock with the new built netloc
     return parsed._replace(netloc=netloc)
 
+def remove_fragment(parsed : ParseResult) -> ParseResult:
+    frag = parsed.fragment
+    if not frag:
+        return parsed
+
+    return parsed._replace(fragment="")
 
 
 @app.post("/")
@@ -113,6 +119,7 @@ def check_risk(values: Values):
         parsed = validate_scheme(parsed)
         parsed = validate_hostname(parsed)
         parsed = normalize_port(parsed)
+        parsed = remove_fragment(parsed)
 
     except Exception:
         return {"message": "not safe"}
@@ -123,4 +130,5 @@ def check_risk(values: Values):
         "port": parsed.port,
         "path": parsed.path,
         "query": parsed.query,
+        "fragment" : parsed.fragment
     }
