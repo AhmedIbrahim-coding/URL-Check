@@ -23,7 +23,7 @@ def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
     
     user_password = user_credentials.password.encode("utf-8")
     if not bcrypt.checkpw(user_password, row[1]):
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid credentials!, Hashed{hashed_password}, correct{row[1]}")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid credentials!")
 
     access_token = authorization.create_access_token(data={"username" : user_credentials.username})
 
