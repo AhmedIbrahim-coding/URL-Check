@@ -34,7 +34,7 @@ class Normalizer:
 
         if "://" in url:
             return url
-
+    
         if re.fullmatch(r"[a-zA-Z0-9.-]+:\d{1,5}", url):
             return "https://" + url
 
