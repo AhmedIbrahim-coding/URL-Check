@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from normalize import Normalizer
 from local_validate import Validator
 from authentication import router
-import authorization
+import authorization, reputation
 from schemas import Values
 
 # create the API app
@@ -37,5 +37,23 @@ def check_risk(values: Values):
         return {"message" : "not safe"}
     
     
-    return {"url" : url}
+    # check the reputation with VirusTotal api
+    
+    stats = reputation.get_stats(url)   # get the result
+    malicious = stats.get("malicious", 0)
+    total_engines = sum(stats.values()) 
+
+    # the engines are supposed to be 95 if it's 0 then there is a problem
+    if total_engines == 0:
+        return {"message" : "Unkown"}
+    
+    # clac the ration
+    ratio = malicious / total_engines
+
+    if malicious >= 3 or ratio > 0.05:
+        return {"message" : "not safe"}    
+    elif malicious > 0:
+        return {"mesage" : "Propaply clean"}
+    else:
+        return {"message" : "Clean"}
 
