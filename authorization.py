@@ -4,7 +4,7 @@ from fastapi import status, HTTPException
 import os
 
 # get the values required from the environment variables
-SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-for-local-testing")
+SECRET_KEY = os.getenv("SEC", "fallback-secret-for-local-testing")
 ALGORITH = os.getenv("ALG" ,"HS256")
 EXPRIATION_TIME = ("EXPT", 20)
 
