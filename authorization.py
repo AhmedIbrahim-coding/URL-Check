@@ -1,11 +1,12 @@
 from jose import JWTError, jwt, ExpiredSignatureError
 from datetime import datetime , timedelta
 from fastapi import status, HTTPException
+import os
 
-# store the constant values for encoding & decoding the jwt token
-SECRET_KEY = "619d6aead40dd7d49561edeb5ea6c764a7de3eebff6bfc36ef1628aa69e0c3a1"
-ALGORITH = "HS256"
-EXPRIATION_TIME = 30
+# get the values required from the environment variables
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-for-local-testing")
+ALGORITH = os.getenv("ALG" ,"HS256")
+EXPRIATION_TIME = ("EXPT", 20)
 
 # Create a new token using the payload or the data & secret key & encoding algorithm
 def create_access_token(data: dict):
