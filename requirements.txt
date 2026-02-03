@@ -1,0 +1,9 @@
+fastapi
+pydantic
+bcrypt
+python-jose[cryptography]
+tldextract
+idna
+requests
+python-multipart
+uvicorn
