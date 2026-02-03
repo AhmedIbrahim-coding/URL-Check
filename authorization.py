@@ -6,7 +6,7 @@ import os
 # get the values required from the environment variables
 SECRET_KEY = os.getenv("SEC", "fallback-secret-for-local-testing")
 ALGORITH = os.getenv("ALG" ,"HS256")
-EXPRIATION_TIME = ("EXPT", 20)
+EXPRIATION_TIME = int(os.getenv("EXPT", 20))
 
 # Create a new token using the payload or the data & secret key & encoding algorithm
 def create_access_token(data: dict):
