@@ -26,7 +26,7 @@ def check_risk(values: Values):
 
     # return a "not safe" message for the user if the url wasn't returned
     if not url:
-        return {"message" : "not safe"}
+        return {"message" : "Not safe"}
     
     # Validate the url
     validator = Validator(url)
@@ -34,7 +34,7 @@ def check_risk(values: Values):
 
     # return a "not safe" message for the user if the url isn't valid locally
     if not valid:
-        return {"message" : "not safe"}
+        return {"message" : "Not safe"}
     
     
     # check the reputation with VirusTotal api
@@ -43,7 +43,7 @@ def check_risk(values: Values):
         malicious = stats.get("malicious", 0)
         total_engines = sum(stats.values()) 
     except:
-        return {"message" : "Unknown"}
+        return {"message" : "Not safe"}
 
     # the engines are supposed to be 95 if it's 0 then there is a problem
     if total_engines == 0:
@@ -53,7 +53,7 @@ def check_risk(values: Values):
     ratio = malicious / total_engines
 
     if malicious >= 3 or ratio > 0.05:
-        return {"message" : "not safe"}    
+        return {"message" : "Not safe"}    
     elif malicious > 0:
         return {"mesage" : "Propaply clean"}
     else:
