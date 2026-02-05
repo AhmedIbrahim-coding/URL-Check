@@ -55,7 +55,7 @@ def check_risk(values: Values):
     if malicious >= 3 or ratio > 0.05:
         return {"message" : "Not safe"}    
     elif malicious > 0:
-        return {"mesage" : "Propaply clean"}
+        return {"message" : "Propaply clean"}
     else:
         return {"message" : "Clean"}
 
