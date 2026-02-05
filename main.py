@@ -38,10 +38,12 @@ def check_risk(values: Values):
     
     
     # check the reputation with VirusTotal api
-    
-    stats = reputation.get_stats(url)   # get the result
-    malicious = stats.get("malicious", 0)
-    total_engines = sum(stats.values()) 
+    try:        
+        stats = reputation.get_stats(url)   # get the result
+        malicious = stats.get("malicious", 0)
+        total_engines = sum(stats.values()) 
+    except:
+        return {"message" : "Unknown"}
 
     # the engines are supposed to be 95 if it's 0 then there is a problem
     if total_engines == 0:
